@@ -92,14 +92,12 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
-
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return feeds.count
     }
@@ -109,10 +107,10 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell
         var index = indexPath.row;
-        cell.textLabel!.text = feeds.objectAtIndex(index).objectForKey("title") as String
-        cell.detailTextLabel!.numberOfLines = 1
+        cell.textLabel!.text = feeds.objectAtIndex(index).objectForKey("title") as? String
+        cell.detailTextLabel!.numberOfLines = 3
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
-        cell.detailTextLabel!.text = feeds.objectAtIndex(index).objectForKey("description") as String
+        cell.detailTextLabel!.text = feeds.objectAtIndex(index).objectForKey("description") as? String
         
         return cell
     }

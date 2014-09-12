@@ -8,12 +8,12 @@
         <scene sceneID="ybS-l4-aIm">
             <objects>
                 <tableViewController id="8kB-6b-MA1" customClass="RSSTableViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IfY-sV-kUc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="IfY-sV-kUc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="Tm0-mU-pfk" detailTextLabel="9KH-DH-9Ii" style="IBUITableViewCellStyleSubtitle" id="VIl-5Q-yTc">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="Tm0-mU-pfk" detailTextLabel="9KH-DH-9Ii" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="VIl-5Q-yTc">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VIl-5Q-yTc" id="vop-LN-BHy">
                                     <autoresizingMask key="autoresizingMask"/>
