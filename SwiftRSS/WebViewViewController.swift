@@ -8,14 +8,14 @@
 
 import UIKit
 
-class WebViewViewController: UIViewController {
+class WebViewViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var webView: UIWebView!
     var url = "http://www.google.com"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        webView.delegate = self;
         loadAddressUrl();
     }
 
@@ -28,9 +28,21 @@ class WebViewViewController: UIViewController {
         let requestUrl = NSURL(string: url);
         let request = NSURLRequest(URL: requestUrl);
         webView.loadRequest(request);
-        println("loading Web page at url \"\(url)\"");
+        println("requesting loading Web page at url \"\(url)\"");
     }
 
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        println("Permitting loading \"\(request.URL)\"");
+        return true;
+    }
+    func webViewDidStartLoad(webView: UIWebView) {
+        println("Start loading Web page at url \"\(url)\"");
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        println("Done loading Web page at url \"\(url)\"");
+    }
+    
     @IBAction func doneSelected(sender: AnyObject) {
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
