@@ -52,17 +52,17 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
     
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
             // process feed elements
-        if  (element as NSString).isEqualToString("item") {
-            if ftitle != nil {
+        if  (elementName == "item") {
+            if ftitle != "" {
                 elements.setObject(ftitle, forKey: "title")
             }
             
-            if link != nil {
+            if link != "" {
                 elements.setObject(link, forKey: "link")
             }
             
-            if fdescription != nil {
-                elements.setObject(link, forKey: "description")
+            if fdescription != "" {
+                elements.setObject(fdescription, forKey: "description")
             }
             
             feeds.addObject(elements)
@@ -71,11 +71,14 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
     
     func parser(parser: NSXMLParser!, foundCharacters string: String!) {
         if element.isEqualToString("title") {
-            ftitle.appendString(string)
+            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            ftitle.appendString(s)
         } else if element.isEqualToString("link") {
-            link.appendString(string)
+            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            link.appendString(s)
         } else if element.isEqualToString("description") {
-            fdescription.appendString(string)
+            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            fdescription.appendString(s)
         }
         
     }
@@ -92,23 +95,24 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
-        // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return feeds.count
     }
 
+    // cellForRowAtIndexPath
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = feeds.objectAtIndex(indexPath.row).objectForKey("title") as String
-        cell.detailTextLabel.numberOfLines = 3
-        cell.detailTextLabel.text = feeds.objectAtIndex(indexPath.row).objectForKey("description") as String
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell
+        var index = indexPath.row;
+        cell.textLabel!.text = feeds.objectAtIndex(index).objectForKey("title") as String
+        cell.detailTextLabel!.numberOfLines = 1
+        cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        cell.detailTextLabel!.text = feeds.objectAtIndex(index).objectForKey("description") as String
         
         return cell
     }
