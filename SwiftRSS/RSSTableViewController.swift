@@ -23,7 +23,7 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
         super.viewDidLoad()
         
         feeds = []
-        var url: NSURL = NSURL.URLWithString("http://www.formula1.com/rss/news/features.rss")
+        var url: NSURL = NSURL.URLWithString("http://www.spiegel.de/schlagzeilen/tops/index.rss")
         parser = NSXMLParser(contentsOfURL: url)
         parser.delegate = self
         parser.shouldProcessNamespaces = false
@@ -75,7 +75,7 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
             let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
             ftitle.appendString(s)
         } else if element.isEqualToString("link") {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            let s = string.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil);
             link.appendString(s)
         } else if element.isEqualToString("description") {
             let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
@@ -88,11 +88,7 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
        self.tableView.reloadData()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+   
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
@@ -116,5 +112,19 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
         return cell
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "webViewOpenSegue") {
+            var index : Int! = self.tableView.indexPathForSelectedRow()?.row;
+            var selectedLink : String! = feeds.objectAtIndex(index!).objectForKey("link") as? String
+            
+            let webViewControler : WebViewViewController = segue.destinationViewController as WebViewViewController
+            webViewControler.url = selectedLink;
+        }
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 
 }

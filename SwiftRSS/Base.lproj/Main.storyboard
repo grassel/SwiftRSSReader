@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pwx-3W-3GJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9g9-iR-nGz">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -32,6 +32,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Cg2-tW-Eez" kind="show" identifier="webViewOpenSegue" id="Mm5-4P-pQY"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -45,27 +48,64 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sS7-XP-xmb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="433" y="868"/>
+            <point key="canvasLocation" x="1114.5" y="862"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Gb2-0e-Ug8">
+        <!--Web-->
+        <scene sceneID="sdg-kd-52K">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pwx-3W-3GJ" sceneMemberID="viewController">
-                    <toolbarItems/>
+                <viewController id="Cg2-tW-Eez" customClass="WebViewViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Twi-Ue-Cwr"/>
+                        <viewControllerLayoutGuide type="bottom" id="y5Y-rP-Jkb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ys2-dK-uOX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cT0-5S-rpe">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="513"/>
+                                </variation>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Web" id="GFN-k3-HyB">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="1j4-pZ-fzZ">
+                            <connections>
+                                <action selector="doneSelected:" destination="Cg2-tW-Eez" id="Ty3-LY-Xj7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DY8-CR-SAy">
+                    <connections>
+                        <outlet property="webView" destination="cT0-5S-rpe" id="Hh9-8M-2iO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ddf-Yz-CW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1780" y="862"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sTa-rw-cZb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9g9-iR-nGz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="K5C-cA-A5j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="8kB-6b-MA1" kind="relationship" relationship="rootViewController" id="qJc-Cx-fH1"/>
+                        <segue destination="8kB-6b-MA1" kind="relationship" relationship="rootViewController" id="63l-G8-kh9"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6k7-Eg-mMu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="303-Qw-n4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8" y="868"/>
+            <point key="canvasLocation" x="433" y="868"/>
         </scene>
     </scenes>
 </document>

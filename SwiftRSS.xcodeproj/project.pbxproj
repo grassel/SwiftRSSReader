@@ -13,6 +13,7 @@
 		3119D2A6198D61550054E85E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3119D2A5198D61550054E85E /* Images.xcassets */; };
 		3119D2B2198D61550054E85E /* SwiftRSSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3119D2B1198D61550054E85E /* SwiftRSSTests.swift */; };
 		3172599319907B3500DA07F5 /* RSSTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172599219907B3500DA07F5 /* RSSTableViewController.swift */; };
+		C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219519C3795200C94AAD /* WebViewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		3119D2B0198D61550054E85E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3119D2B1198D61550054E85E /* SwiftRSSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRSSTests.swift; sourceTree = "<group>"; };
 		3172599219907B3500DA07F5 /* RSSTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSTableViewController.swift; sourceTree = "<group>"; };
+		C534219519C3795200C94AAD /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				3119D2A5198D61550054E85E /* Images.xcassets */,
 				3119D29D198D61550054E85E /* SwiftRSS.xcdatamodeld */,
 				3119D299198D61550054E85E /* Supporting Files */,
+				C534219519C3795200C94AAD /* WebViewViewController.swift */,
 			);
 			path = SwiftRSS;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			files = (
 				3119D29F198D61550054E85E /* SwiftRSS.xcdatamodeld in Sources */,
 				3119D29C198D61550054E85E /* AppDelegate.swift in Sources */,
+				C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */,
 				3172599319907B3500DA07F5 /* RSSTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
