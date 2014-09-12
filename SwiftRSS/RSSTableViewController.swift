@@ -3,6 +3,7 @@
 //  SwiftRSS
 //
 //  Created by albert mckeever on 8/4/14.
+//  fized to work with XCODE 6 GM by grassel on Sept 12
 //  Copyright (c) 2014 albert mckeever. All rights reserved.
 //
 
