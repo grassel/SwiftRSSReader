@@ -116,14 +116,18 @@ class FeedsTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "updateFeedInfo") {
+            var index = self.tableView.indexPathForSelectedRow()?.row;
+            var selectedItem : NSManagedObject = feedsList[index!] as NSManagedObject
+            
+            let newFeedViewController : NewFeedViewController = segue.destinationViewController as NewFeedViewController
+            newFeedViewController.urlString = selectedItem.valueForKey("urlString") as String;
+            newFeedViewController.titleString = selectedItem.valueForKey("titleString") as String;
+            newFeedViewController.existingItem = selectedItem
+        }
     }
-    */
-
 }

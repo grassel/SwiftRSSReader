@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class NewFeedViewController: UIViewController {
+class NewFeedViewController: UIViewController, RssFeedChannelParserDelegate {
    
     @IBOutlet weak var rssFiedUrlField: UITextField!
     @IBOutlet weak var rssFiedTitleLabel: UILabel!
@@ -19,6 +19,18 @@ class NewFeedViewController: UIViewController {
             rssFiedUrlField.text = urlString;
             rssFiedTitleLabel.text = titleString
         }
+    }
+    
+    @IBAction func fetchButtonSelected(sender: AnyObject) {
+        var urlString = rssFiedUrlField!.text;
+        
+        var parser = RssFeedChannelParser();
+        parser.delegate = self;
+        parser.parseRssFeedChannel(urlString);
+    }
+    
+    func onParseResult(title ftitle: String, pubDate fpubDateString: String, description fdescription: String, imageUrl fimageUrlString: String) {
+        rssFiedTitleLabel.text = ftitle;
     }
     
     @IBAction func saveButtonSelected(sender: AnyObject) {

@@ -17,6 +17,8 @@
 		C534219819C4272200C94AAD /* FeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219719C4272200C94AAD /* FeedsTableViewController.swift */; };
 		C534219A19C42D4200C94AAD /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219919C42D4200C94AAD /* NewFeedViewController.swift */; };
 		C534219C19C4677A00C94AAD /* RssFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219B19C4677A00C94AAD /* RssFeedModel.swift */; };
+		C534219E19C4C21E00C94AAD /* RssFeedChannelParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219D19C4C21E00C94AAD /* RssFeedChannelParser.swift */; };
+		C53421A219C4D2ED00C94AAD /* RssFeedChannelParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53421A119C4D2ED00C94AAD /* RssFeedChannelParserDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		C534219719C4272200C94AAD /* FeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsTableViewController.swift; sourceTree = "<group>"; };
 		C534219919C42D4200C94AAD /* NewFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeedViewController.swift; sourceTree = "<group>"; };
 		C534219B19C4677A00C94AAD /* RssFeedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssFeedModel.swift; sourceTree = "<group>"; };
+		C534219D19C4C21E00C94AAD /* RssFeedChannelParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssFeedChannelParser.swift; sourceTree = "<group>"; };
+		C53421A119C4D2ED00C94AAD /* RssFeedChannelParserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssFeedChannelParserDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 				C534219719C4272200C94AAD /* FeedsTableViewController.swift */,
 				C534219919C42D4200C94AAD /* NewFeedViewController.swift */,
 				C534219B19C4677A00C94AAD /* RssFeedModel.swift */,
+				C534219D19C4C21E00C94AAD /* RssFeedChannelParser.swift */,
+				C53421A119C4D2ED00C94AAD /* RssFeedChannelParserDelegate.swift */,
 			);
 			path = SwiftRSS;
 			sourceTree = "<group>";
@@ -231,6 +237,8 @@
 				C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */,
 				3172599319907B3500DA07F5 /* RSSTableViewController.swift in Sources */,
 				C534219C19C4677A00C94AAD /* RssFeedModel.swift in Sources */,
+				C534219E19C4C21E00C94AAD /* RssFeedChannelParser.swift in Sources */,
+				C53421A219C4D2ED00C94AAD /* RssFeedChannelParserDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
