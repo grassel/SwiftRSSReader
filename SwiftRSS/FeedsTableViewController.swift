@@ -7,19 +7,29 @@
 //
 
 import UIKit
+import CoreData
 
 class FeedsTableViewController: UITableViewController {
 
+    var feedsList : Array<AnyObject> = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        println("viewWillAppear");
+        
+        let appDel : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        let context : NSManagedObjectContext = appDel.managedObjectContext!;
+        let freq = NSFetchRequest(entityName: "RssFeeds1");
+        
+        feedsList = context.executeFetchRequest(freq, error: nil)!
+        tableView.reloadData()
+    }
+    
     @IBAction func doeSelected(sender: AnyObject) {
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
@@ -40,11 +50,27 @@ class FeedsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return feedsList.count;
     }
 
+
+    // returns the cell or given index 
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        // configure the cell.
+        let cellID : NSString = "feedsCell"; // match what's been defined in the storyboard.
+        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier(cellID) as UITableViewCell;
+        
+        let ip = indexPath
+        var data : NSManagedObject = feedsList[ip.row] as NSManagedObject;
+        
+        cell.textLabel?.text = data.valueForKey("titleString") as? String;
+        cell.detailTextLabel?.text = data.valueForKey("urlString") as? String;
+
+        return cell
+    }
+    
     /*
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell

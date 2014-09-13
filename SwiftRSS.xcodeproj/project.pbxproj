@@ -16,6 +16,7 @@
 		C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219519C3795200C94AAD /* WebViewViewController.swift */; };
 		C534219819C4272200C94AAD /* FeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219719C4272200C94AAD /* FeedsTableViewController.swift */; };
 		C534219A19C42D4200C94AAD /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219919C42D4200C94AAD /* NewFeedViewController.swift */; };
+		C534219C19C4677A00C94AAD /* RssFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219B19C4677A00C94AAD /* RssFeedModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		C534219519C3795200C94AAD /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		C534219719C4272200C94AAD /* FeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsTableViewController.swift; sourceTree = "<group>"; };
 		C534219919C42D4200C94AAD /* NewFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeedViewController.swift; sourceTree = "<group>"; };
+		C534219B19C4677A00C94AAD /* RssFeedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssFeedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				C534219519C3795200C94AAD /* WebViewViewController.swift */,
 				C534219719C4272200C94AAD /* FeedsTableViewController.swift */,
 				C534219919C42D4200C94AAD /* NewFeedViewController.swift */,
+				C534219B19C4677A00C94AAD /* RssFeedModel.swift */,
 			);
 			path = SwiftRSS;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				C534219A19C42D4200C94AAD /* NewFeedViewController.swift in Sources */,
 				C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */,
 				3172599319907B3500DA07F5 /* RSSTableViewController.swift in Sources */,
+				C534219C19C4677A00C94AAD /* RssFeedModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
