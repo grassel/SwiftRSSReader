@@ -14,6 +14,8 @@
 		3119D2B2198D61550054E85E /* SwiftRSSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3119D2B1198D61550054E85E /* SwiftRSSTests.swift */; };
 		3172599319907B3500DA07F5 /* RSSTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172599219907B3500DA07F5 /* RSSTableViewController.swift */; };
 		C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219519C3795200C94AAD /* WebViewViewController.swift */; };
+		C534219819C4272200C94AAD /* FeedsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219719C4272200C94AAD /* FeedsTableViewController.swift */; };
+		C534219A19C42D4200C94AAD /* NewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534219919C42D4200C94AAD /* NewFeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		3119D2B1198D61550054E85E /* SwiftRSSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRSSTests.swift; sourceTree = "<group>"; };
 		3172599219907B3500DA07F5 /* RSSTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSTableViewController.swift; sourceTree = "<group>"; };
 		C534219519C3795200C94AAD /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		C534219719C4272200C94AAD /* FeedsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsTableViewController.swift; sourceTree = "<group>"; };
+		C534219919C42D4200C94AAD /* NewFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,8 @@
 				3119D29D198D61550054E85E /* SwiftRSS.xcdatamodeld */,
 				3119D299198D61550054E85E /* Supporting Files */,
 				C534219519C3795200C94AAD /* WebViewViewController.swift */,
+				C534219719C4272200C94AAD /* FeedsTableViewController.swift */,
+				C534219919C42D4200C94AAD /* NewFeedViewController.swift */,
 			);
 			path = SwiftRSS;
 			sourceTree = "<group>";
@@ -216,7 +222,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3119D29F198D61550054E85E /* SwiftRSS.xcdatamodeld in Sources */,
+				C534219819C4272200C94AAD /* FeedsTableViewController.swift in Sources */,
 				3119D29C198D61550054E85E /* AppDelegate.swift in Sources */,
+				C534219A19C42D4200C94AAD /* NewFeedViewController.swift in Sources */,
 				C534219619C3795200C94AAD /* WebViewViewController.swift in Sources */,
 				3172599319907B3500DA07F5 /* RSSTableViewController.swift in Sources */,
 			);

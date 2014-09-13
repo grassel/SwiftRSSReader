@@ -108,7 +108,6 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
         cell.detailTextLabel!.numberOfLines = 3
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
         cell.detailTextLabel!.text = feeds.objectAtIndex(index).objectForKey("description") as? String
-        
         return cell
     }
     
@@ -119,6 +118,9 @@ class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
             
             let webViewControler : WebViewViewController = segue.destinationViewController as WebViewViewController
             webViewControler.url = selectedLink;
+        } else if (segue.identifier == "feedsBookmarksSeque") {
+            let feedsViewController : FeedsTableViewController = segue.destinationViewController as FeedsTableViewController;
+           // pass parameters to  feedsViewController
         }
     }
 

@@ -42,13 +42,116 @@
                             <outlet property="delegate" destination="8kB-6b-MA1" id="v71-uZ-yhd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="KBz-sA-HA6"/>
+                    <navigationItem key="navigationItem" id="KBz-sA-HA6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="hPM-bc-7rm">
+                            <connections>
+                                <segue destination="Fvd-Ec-q9a" kind="show" identifier="feedsBookmarksSeque" id="YR1-2R-tDO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sS7-XP-xmb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1114.5" y="862"/>
+        </scene>
+        <!--Feeds Table View Controller-->
+        <scene sceneID="nM0-Rw-TRX">
+            <objects>
+                <tableViewController id="Fvd-Ec-q9a" customClass="FeedsTableViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Osh-U0-3aN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="feedsCell" textLabel="swn-oN-V71" detailTextLabel="Wwz-M8-Pz2" style="IBUITableViewCellStyleSubtitle" id="Jnr-EH-5j1">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jnr-EH-5j1" id="ScA-1l-89P">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="swn-oN-V71">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wwz-M8-Pz2">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="F0c-Cd-r5E" kind="show" identifier="editFeedInfo" id="AIB-Fi-uV7"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Fvd-Ec-q9a" id="fX8-z3-C4P"/>
+                            <outlet property="delegate" destination="Fvd-Ec-q9a" id="DCO-WG-VyA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="meV-zd-hYV">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="oI7-0P-SKq">
+                            <connections>
+                                <action selector="doeSelected:" destination="Fvd-Ec-q9a" id="B3y-HP-IJH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="3Ss-u8-9rQ">
+                            <connections>
+                                <action selector="addNewFeedSelected:" destination="Fvd-Ec-q9a" id="M2t-uP-qkh"/>
+                                <segue destination="F0c-Cd-r5E" kind="show" identifier="addNewFeed" id="Obo-9v-rwb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lvp-hQ-FCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2188" y="499"/>
+        </scene>
+        <!--New Feed View Controller-->
+        <scene sceneID="wBn-UT-okz">
+            <objects>
+                <viewController id="F0c-Cd-r5E" customClass="NewFeedViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RDf-DJ-Afg"/>
+                        <viewControllerLayoutGuide type="bottom" id="d9K-a6-ibu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bfo-JS-OyJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="RSS Feed URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EX0-in-E4V">
+                                <rect key="frame" x="16" y="28" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0R-Vc-dAT">
+                                <rect key="frame" x="16" y="166" width="288" height="30"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feeds Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0g-lz-01e">
+                                <rect key="frame" x="16" y="130" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="icZ-WS-wcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2703" y="515"/>
         </scene>
         <!--Web-->
         <scene sceneID="sdg-kd-52K">
@@ -87,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddf-Yz-CW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="862"/>
+            <point key="canvasLocation" x="1637" y="1145"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sTa-rw-cZb">
@@ -108,4 +211,7 @@
             <point key="canvasLocation" x="433" y="868"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="AIB-Fi-uV7"/>
+    </inferredMetricsTieBreakers>
 </document>
