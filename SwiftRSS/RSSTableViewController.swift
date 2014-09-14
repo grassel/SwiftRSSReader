@@ -9,85 +9,32 @@
 
 import UIKit
 
-class RSSTableViewController: UITableViewController, NSXMLParserDelegate {
+class RSSTableViewController: UITableViewController, RSSFeedItemsParserDelegate {
 
-    var parser = NSXMLParser()
-    var feeds = NSMutableArray()
-    var elements = NSMutableDictionary()
-    var element = NSString()
-    var ftitle = NSMutableString()
-    var link = NSMutableString()
-    var fdescription = NSMutableString()
+    var urlString : String = "http://www.spiegel.de/schlagzeilen/tops/index.rss"   // url of the currently displayed RSS feed
+    var feeds : NSMutableArray = []  // holds the result
+    
+    var parser : RSSFeedItemsParser = RSSFeedItemsParser();
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        feeds = []
-        var url: NSURL = NSURL.URLWithString("http://www.spiegel.de/schlagzeilen/tops/index.rss")
-        parser = NSXMLParser(contentsOfURL: url)
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        parser.shouldReportNamespacePrefixes = false
-        parser.shouldResolveExternalEntities = false
-        parser.parse()
-        
+        parser.delegate = self;
+        parser.parseRssFeedItemsAsync(urlString);
+        // RSSFeedItemsParserDelegate delivers results
     }
     
-    func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!) {
-        
-        element = elementName
-        
-        // instantiate feed properties
-        
-        if (element as NSString).isEqualToString("item") {
-            elements = NSMutableDictionary.alloc()
-            elements = [:]
-            ftitle = ""
-            link = NSMutableString.alloc()
-            link = ""
-            fdescription = NSMutableString.alloc()
-            fdescription = ""
-        }
-        
+    // RSSFeedItemsParserDelegate
+    func parseItem(ftitle : NSMutableString, link : NSMutableString, fdescription : NSMutableString) {
+        // FIXME, we need a new container RssFeedItem
+        feeds.addObject(rssFeedItem);
+        self.tableView.reloadData()
     }
     
-    func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
-            // process feed elements
-        if  (elementName == "item") {
-            if ftitle != "" {
-                elements.setObject(ftitle, forKey: "title")
-            }
-            
-            if link != "" {
-                elements.setObject(link, forKey: "link")
-            }
-            
-            if fdescription != "" {
-                elements.setObject(fdescription, forKey: "description")
-            }
-            
-            feeds.addObject(elements)
-        }
-    }
-    
-    func parser(parser: NSXMLParser!, foundCharacters string: String!) {
-        if element.isEqualToString("title") {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
-            ftitle.appendString(s)
-        } else if element.isEqualToString("link") {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil);
-            link.appendString(s)
-        } else if element.isEqualToString("description") {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
-            fdescription.appendString(s)
-        }
-        
-    }
-    
-    func parserDidEndDocument(parser: NSXMLParser!) {
-       self.tableView.reloadData()
-    }
-
+    // RSSFeedItemsParserDelegate
+  //  func parseDone() {
+      //  self.tableView.reloadData()
+   // }
    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.

@@ -2,97 +2,109 @@
 import UIKit
 import CoreData
 
-class NewFeedViewController: UIViewController, RssFeedChannelParserDelegate {
-   
+class NewFeedViewController: UIViewController, RssFeedChannelParserDelegate, UITextFieldDelegate {
+    
     @IBOutlet weak var rssFiedUrlField: UITextField!
     @IBOutlet weak var rssFiedTitleLabel: UILabel!
     @IBOutlet weak var rssFeedImage: UIImageView!
     @IBOutlet weak var rssFeedDescriptionLabel: UILabel!
     @IBOutlet weak var rssFeedPubDateLabel: UILabel!
+    @IBOutlet weak var updateFeedButton: UIButton!
 
     // properties used to move data access from the ListTabletViewController
     var urlString : String = ""
     var titleString : String = ""
     var existingItem : NSManagedObject! = nil;
-
-    // queue for doing RSS parsing in background thread
-    let queue = NSOperationQueue()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         rssFeedDescriptionLabel.numberOfLines = 0; // unlimited number of lines
-        rssFeedDescriptionLabel.sizeToFit();
+        rssFeedDescriptionLabel.hidden = true;
+        rssFeedPubDateLabel.hidden = true;
+        rssFeedPubDateLabel.hidden = true;
+        updateFeedButton.hidden = true;
         
         if existingItem != nil {
             rssFiedUrlField.text = urlString;
             rssFiedTitleLabel.text = titleString
             
             if (urlString != "") {
-                var parser = RssFeedChannelParser();
-                parser.delegate = self;
-                parser.parseRssFeedChannel(urlString);
+                parseRSSFeedChannelAsync(urlString);
             }
+        }else {
+            rssFiedTitleLabel.hidden = true;
+
         }
     }
     
+    
     /* http://stackoverflow.com/questions/1054558/vertically-align-text-within-a-uilabel
-        If your label is included in a nib or storyboard as a subview of the view of a ViewController that uses autolayout, then putting your sizeToFit call into viewDidLoad won't work, because autolayout sizes and positions the subviews after viewDidLoad is called and will immediately undo the effects of your sizeToFit call. However, calling sizeToFit from within viewDidLayoutSubviews will work.
+    If your label is included in a nib or storyboard as a subview of the view of a ViewController that uses autolayout, then putting your sizeToFit call into viewDidLoad won't work, because autolayout sizes and positions the subviews after viewDidLoad is called and will immediately undo the effects of your sizeToFit call. However, calling sizeToFit from within viewDidLayoutSubviews will work.
     */
     override func viewDidLayoutSubviews() {
         rssFeedDescriptionLabel.sizeToFit();
     }
     
-    @IBAction func fetchButtonSelected(sender: AnyObject) {
-        var urlString = rssFiedUrlField!.text;
-        
-        /* http://stackoverflow.com/questions/24589575/how-to-do-multithreading-concurrency-or-parallelism-in-ios-swift
-          func addOperationWithBlock(block: (() -> Void)!)
-          block role is extraneous, and last func argument, can be shortened to
-          queue.addOperationWithBlock() { ... }
-        */
-        queue.addOperationWithBlock() {
-            var parser = RssFeedChannelParser();
-            parser.delegate = self;
-            parser.parseRssFeedChannel(urlString);
+    // UITextFieldDelegate delegate
+    func textFieldDidEndEditing(textField: UITextField) {
+        if (rssFiedUrlField != textField) {
+            return; // defensive programming: since we only have one TextField this should never happen.
+        }
+        textField.resignFirstResponder();
+        if (urlString != textField.text!) {
+            // the url has been entered from scratch or it has been edited
+            // fetch the feed description
+            parseRSSFeedChannelAsync(rssFiedUrlField!.text);
         }
     }
     
+    func parseRSSFeedChannelAsync(urlToRssFeed : String) {
+        var parser = RssFeedChannelParser();
+        parser.delegate = self;
+        parser.parseRssFeedChannelAsync(urlToRssFeed);
+        // RssFeedChannelParserDelegate.parseValue(role: ...) deliver the results.
+    }
     
+    // RssFeedChannelParserDelegate
     func parseValue(title ftitle: String) {
-        // update UILabel in UI thread
-        NSOperationQueue.mainQueue().addOperationWithBlock() {
-            // when done, update your UI and/or model on the main queue
-            self.rssFiedTitleLabel.text = ftitle;
-        };
+        rssFeedDescriptionLabel.hidden = false;
+        rssFiedTitleLabel.text = ftitle;
     }
     
+    // RssFeedChannelParserDelegate
     func parseValue(description fdescription: String) {
-        NSOperationQueue.mainQueue().addOperationWithBlock() {
-            self.rssFeedDescriptionLabel.text = fdescription;
-        }
+        rssFeedDescriptionLabel.hidden = false;
+        rssFeedDescriptionLabel.text = fdescription;
     }
     
+    // RssFeedChannelParserDelegate
     func parseValue(pubDate fpubDateString : String) {
-        NSOperationQueue.mainQueue().addOperationWithBlock() {
-            self.rssFeedPubDateLabel.text = "Published:\n\(fpubDateString)";
-        }
+        rssFeedPubDateLabel.hidden = false;
+        rssFeedPubDateLabel.text = "Published:\n\(fpubDateString)";
     }
     
-    func parseValue(imageUrl fimageUrlString :String) {
-        // fetch the image data in the background
-        queue.addOperationWithBlock() {
-            let url = NSURL.URLWithString(fimageUrlString);
-            var err: NSError?
-            var imageData :NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err);
-            
-            NSOperationQueue.mainQueue().addOperationWithBlock() {
-                // set the image content in the foreground
-                self.rssFeedImage.image = UIImage(data:imageData);
-            }
-        }
+    // RssFeedChannelParserDelegate
+    func parseValue(imageUrl fimageUrlString: String) {
+        // do nothing, wait for UIImage
+        /*
+        FIXME: use optional method in protocol, but how to check i delegate implements the method
+        (the issue is about checking if a delegate implements the method inside the block argument
+        of addOperationWithBlock(block: { ... } )
+        */
     }
-
+    
+    // RssFeedChannelParserDelegate
+    func parseValue(decodedImage image: UIImage) {
+        rssFeedImage.hidden = false;
+        rssFeedImage.image = image;
+    }
+    
+    
+    // RssFeedChannelParserDelegate
+    func parseDone() {
+        updateFeedButton.hidden = false;
+    }
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
         // reference app delegate
