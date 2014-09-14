@@ -127,32 +127,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feeds Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0g-lz-01e">
-                                <rect key="frame" x="16" y="163" width="288" height="21"/>
+                                <rect key="frame" x="16" y="196" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0R-Vc-dAT">
-                                <rect key="frame" x="16" y="209" width="288" height="30"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveButtonSelected:" destination="F0c-Cd-r5E" eventType="touchUpInside" id="f8e-aC-5Zc"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="RSS Feed URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EX0-in-E4V">
                                 <rect key="frame" x="16" y="87" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wz-Xz-XTR">
-                                <rect key="frame" x="258" y="125" width="39" height="30"/>
+                                <rect key="frame" x="265" y="125" width="39" height="30"/>
                                 <state key="normal" title="Fetch">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="fetchButtonSelected:" destination="F0c-Cd-r5E" eventType="touchUpInside" id="keP-Up-uz2"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="END-c2-glp">
+                                <rect key="frame" x="16" y="225" width="50" height="50"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pub Date" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bs7-SB-7cT">
+                                <rect key="frame" x="74" y="437" width="224" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feed Description" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="565-GN-9WH">
+                                <rect key="frame" x="74" y="225" width="230" height="199"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0R-Vc-dAT">
+                                <rect key="frame" x="10" y="497" width="288" height="30"/>
+                                <state key="normal" title="Update Feed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonSelected:" destination="F0c-Cd-r5E" eventType="touchUpInside" id="f8e-aC-5Zc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -161,6 +176,9 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="rssFeedDescriptionLabel" destination="565-GN-9WH" id="IWM-3r-Fya"/>
+                        <outlet property="rssFeedImage" destination="END-c2-glp" id="PmB-qV-4qQ"/>
+                        <outlet property="rssFeedPubDateLabel" destination="bs7-SB-7cT" id="Wuh-fO-cgO"/>
                         <outlet property="rssFiedTitleLabel" destination="Z0g-lz-01e" id="RWN-p9-9hU"/>
                         <outlet property="rssFiedUrlField" destination="EX0-in-E4V" id="fOu-c5-kFL"/>
                     </connections>

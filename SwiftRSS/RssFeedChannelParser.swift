@@ -11,13 +11,6 @@ import Foundation
 class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
 
     var parser = NSXMLParser()
-    
-    // values of the elements we are looking for
-    var ftitle : String = ""             // channel/title element
-    var fpubDateString : String = ""     // channel/pubDate element
-    var fdescription : String = ""       // channel/description element
-    var fimageUrlString : String = ""    // channel/image/url element
-
     var parsedElements : NSMutableArray = NSMutableArray();
     var delegate : RssFeedChannelParserDelegate! = nil;
     
@@ -34,11 +27,6 @@ class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
         parser.shouldResolveExternalEntities = false
         
         parsedElements = [];     // no elements parsed
-        ftitle  = ""             // channel/title element
-        fpubDateString = ""      // channel/pubDate element
-        fdescription  = ""       // channel/description element
-        fimageUrlString = ""     // channel/image/url element
-        
         parser.parse()
     }
     
@@ -82,18 +70,24 @@ class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
     
     func parser(parser: NSXMLParser!, foundCharacters string: String!) {
         if (parentElement() == "title" && grandParentElement() == "channel" && grangrandParentElement() == "rss") {
-            ftitle = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            if (delegate != nil) {
+                delegate.parseValue(title: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil));
+            }
         } else if (parentElement() == "description" && grandParentElement() == "channel" && grangrandParentElement() == "rss") {
-            fdescription = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            if (delegate != nil) {
+                delegate.parseValue(description: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil));
+            }
         } else if (parentElement() == "pubDate" && grandParentElement() == "channel" && grangrandParentElement() == "rss") {
-            fpubDateString = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            if (delegate != nil) {
+                delegate.parseValue(pubDate: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil));
+            }
         } else if (parentElement() == "url" && grandParentElement() == "image" && grangrandParentElement() == "channel") {
-            fimageUrlString = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+            if (delegate != nil) {
+                delegate.parseValue(imageUrl: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil));
+            }
         }
     }
     
     func parserDidEndDocument(parser: NSXMLParser!) {
-        println("Fround ftitle=\(ftitle), fdescription=\(fdescription), fpubDateString=\(fpubDateString), fimageUrlString=\(fimageUrlString).");
-        delegate.onParseResult(title: self.ftitle, pubDate: self.fpubDateString, description: self.fdescription, imageUrl: self.fimageUrlString)
     }
 }

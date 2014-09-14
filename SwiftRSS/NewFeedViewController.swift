@@ -6,32 +6,93 @@ class NewFeedViewController: UIViewController, RssFeedChannelParserDelegate {
    
     @IBOutlet weak var rssFiedUrlField: UITextField!
     @IBOutlet weak var rssFiedTitleLabel: UILabel!
-    
+    @IBOutlet weak var rssFeedImage: UIImageView!
+    @IBOutlet weak var rssFeedDescriptionLabel: UILabel!
+    @IBOutlet weak var rssFeedPubDateLabel: UILabel!
+
     // properties used to move data access from the ListTabletViewController
     var urlString : String = ""
     var titleString : String = ""
     var existingItem : NSManagedObject! = nil;
 
+    // queue for doing RSS parsing in background thread
+    let queue = NSOperationQueue()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rssFeedDescriptionLabel.numberOfLines = 0; // unlimited number of lines
+        rssFeedDescriptionLabel.sizeToFit();
         
         if existingItem != nil {
             rssFiedUrlField.text = urlString;
             rssFiedTitleLabel.text = titleString
+            
+            if (urlString != "") {
+                var parser = RssFeedChannelParser();
+                parser.delegate = self;
+                parser.parseRssFeedChannel(urlString);
+            }
         }
+    }
+    
+    /* http://stackoverflow.com/questions/1054558/vertically-align-text-within-a-uilabel
+        If your label is included in a nib or storyboard as a subview of the view of a ViewController that uses autolayout, then putting your sizeToFit call into viewDidLoad won't work, because autolayout sizes and positions the subviews after viewDidLoad is called and will immediately undo the effects of your sizeToFit call. However, calling sizeToFit from within viewDidLayoutSubviews will work.
+    */
+    override func viewDidLayoutSubviews() {
+        rssFeedDescriptionLabel.sizeToFit();
     }
     
     @IBAction func fetchButtonSelected(sender: AnyObject) {
         var urlString = rssFiedUrlField!.text;
         
-        var parser = RssFeedChannelParser();
-        parser.delegate = self;
-        parser.parseRssFeedChannel(urlString);
+        /* http://stackoverflow.com/questions/24589575/how-to-do-multithreading-concurrency-or-parallelism-in-ios-swift
+          func addOperationWithBlock(block: (() -> Void)!)
+          block role is extraneous, and last func argument, can be shortened to
+          queue.addOperationWithBlock() { ... }
+        */
+        queue.addOperationWithBlock() {
+            var parser = RssFeedChannelParser();
+            parser.delegate = self;
+            parser.parseRssFeedChannel(urlString);
+        }
     }
     
-    func onParseResult(title ftitle: String, pubDate fpubDateString: String, description fdescription: String, imageUrl fimageUrlString: String) {
-        rssFiedTitleLabel.text = ftitle;
+    
+    func parseValue(title ftitle: String) {
+        // update UILabel in UI thread
+        NSOperationQueue.mainQueue().addOperationWithBlock() {
+            // when done, update your UI and/or model on the main queue
+            self.rssFiedTitleLabel.text = ftitle;
+        };
     }
+    
+    func parseValue(description fdescription: String) {
+        NSOperationQueue.mainQueue().addOperationWithBlock() {
+            self.rssFeedDescriptionLabel.text = fdescription;
+        }
+    }
+    
+    func parseValue(pubDate fpubDateString : String) {
+        NSOperationQueue.mainQueue().addOperationWithBlock() {
+            self.rssFeedPubDateLabel.text = "Published:\n\(fpubDateString)";
+        }
+    }
+    
+    func parseValue(imageUrl fimageUrlString :String) {
+        // fetch the image data in the background
+        queue.addOperationWithBlock() {
+            let url = NSURL.URLWithString(fimageUrlString);
+            var err: NSError?
+            var imageData :NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err);
+            
+            NSOperationQueue.mainQueue().addOperationWithBlock() {
+                // set the image content in the foreground
+                self.rssFeedImage.image = UIImage(data:imageData);
+            }
+        }
+    }
+
     
     @IBAction func saveButtonSelected(sender: AnyObject) {
         // reference app delegate

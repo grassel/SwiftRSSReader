@@ -9,5 +9,8 @@
 import Foundation
 
 protocol RssFeedChannelParserDelegate {
-    func onParseResult (title ftitle : String, pubDate fpubDateString : String, description fdescription: String, imageUrl fimageUrlString :String);
+    func parseValue(title ftitle : String);
+    func parseValue(description fdescription: String);
+    func parseValue(pubDate fpubDateString : String);
+    func parseValue(imageUrl fimageUrlString :String);
 }
