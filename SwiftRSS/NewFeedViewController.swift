@@ -153,7 +153,7 @@ class NewFeedViewController: UIViewController, RssFeedChannelParserDelegate, UIT
         
         // referene managed object context
         let context : NSManagedObjectContext = appDel.managedObjectContext!
-        let en = NSEntityDescription.entityForName("RssFeeds1", inManagedObjectContext: context)
+        let en = NSEntityDescription.entityForName(rssFeedChannelTableName, inManagedObjectContext: context)
         
         // check if item exists
         if existingItem != nil {

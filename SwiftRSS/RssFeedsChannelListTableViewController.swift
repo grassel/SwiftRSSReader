@@ -2,8 +2,10 @@
 import UIKit
 import CoreData
 
-class RssFeedsChannelListTableViewController: UITableViewController {
+let rssFeedChannelTableName = "RSSFeedChannelsEntity";
 
+class RssFeedsChannelListTableViewController: UITableViewController {
+    
     var feedsList : Array<AnyObject> = []
 
     override func viewDidLoad() {
@@ -17,7 +19,7 @@ class RssFeedsChannelListTableViewController: UITableViewController {
         
         let appDel : AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
         let context : NSManagedObjectContext = appDel.managedObjectContext!;
-        let freq = NSFetchRequest(entityName: "RssFeeds1");
+        let freq = NSFetchRequest(entityName: rssFeedChannelTableName);
         
         feedsList = context.executeFetchRequest(freq, error: nil)!
         tableView.reloadData()
