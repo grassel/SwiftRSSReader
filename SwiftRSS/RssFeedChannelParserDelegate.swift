@@ -2,11 +2,22 @@
 import Foundation
 import UIKit
 
-protocol RssFeedChannelParserDelegate {
-    func parseValue(title ftitle : String);
-    func parseValue(description fdescription: String);
-    func parseValue(pubDate fpubDateString : String);
-    func parseValue(imageUrl fimageUrlString :String);
-    func parseValue(decodedImage image: UIImage);
-    func parseDone();
+@objc protocol RssFeedChannelParserDelegate {
+    
+    optional func parseValue(title ftitle : String,
+        description fdescription: String,
+        pubDate fpubDateString : String,
+        imageUrl fimageUrlString :String);
+    
+    optional func parseValue(decodedImage image: UIImage);
+    
+    // end of document reached
+    // not sure this is of much value
+    optional func parseDone();
+    
+    // retrieving or parsing has failed
+   optional func parsingFaied();
+    
+    // retrieving and parsing has succeeded
+    optional func parsingSucceeded();
 }

@@ -127,10 +127,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="RSS Feed URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EX0-in-E4V">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://" borderStyle="roundedRect" placeholder="RSS Feed URL" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EX0-in-E4V">
                                 <rect key="frame" x="16" y="87" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feeds Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0g-lz-01e">
                                 <rect key="frame" x="22" y="137" width="288" height="21"/>
@@ -149,6 +149,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feed Description" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="565-GN-9WH">
                                 <rect key="frame" x="80" y="166" width="230" height="199"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -164,6 +165,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="HJP-AM-Kse" appends="YES" id="QX2-rA-ksh"/>
+                        </connections>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -171,12 +176,17 @@
                         <outlet property="rssFeedDescriptionLabel" destination="565-GN-9WH" id="IWM-3r-Fya"/>
                         <outlet property="rssFeedImage" destination="END-c2-glp" id="PmB-qV-4qQ"/>
                         <outlet property="rssFeedPubDateLabel" destination="bs7-SB-7cT" id="Wuh-fO-cgO"/>
-                        <outlet property="rssFiedTitleLabel" destination="Z0g-lz-01e" id="RWN-p9-9hU"/>
-                        <outlet property="rssFiedUrlField" destination="EX0-in-E4V" id="fOu-c5-kFL"/>
+                        <outlet property="rssFeedTitleLabel" destination="Z0g-lz-01e" id="wNf-CQ-qdF"/>
+                        <outlet property="rssFeedUrlField" destination="EX0-in-E4V" id="FeH-Ka-aje"/>
                         <outlet property="updateFeedButton" destination="y0R-Vc-dAT" id="HPD-qH-xsv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icZ-WS-wcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="HJP-AM-Kse">
+                    <connections>
+                        <action selector="onTapGesture:" destination="F0c-Cd-r5E" id="OVV-Ri-5C7"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2703" y="515"/>
         </scene>
