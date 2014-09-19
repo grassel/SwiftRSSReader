@@ -9,10 +9,10 @@
 
 import UIKit
 
-class RSSTableViewController: UITableViewController, RSSFeedItemsParserDelegate {
+class RssFeedItemListTableViewController: UITableViewController, RSSFeedItemsParserDelegate {
 
     var urlString : String = "http://www.spiegel.de/schlagzeilen/tops/index.rss"   // url of the currently displayed RSS feed
-    var feeds : NSMutableArray = []  // holds the result
+    var feeds : Array<RssFeedItemModel> = []  // holds the result
     
     var parser : RSSFeedItemsParser = RSSFeedItemsParser();
     
@@ -25,16 +25,16 @@ class RSSTableViewController: UITableViewController, RSSFeedItemsParserDelegate 
     }
     
     // RSSFeedItemsParserDelegate
-    func parseItem(ftitle : NSMutableString, link : NSMutableString, fdescription : NSMutableString) {
-        // FIXME, we need a new container RssFeedItem
-        feeds.addObject(rssFeedItem);
-        self.tableView.reloadData()
+    func parseItem(feedItem : RssFeedItemModel) {
+        //println("parseItem: appending \(feedItem.ftitle), \(feedItem.link).");
+        feeds.append(feedItem)
+       // self.tableView.reloadData()
     }
     
     // RSSFeedItemsParserDelegate
-  //  func parseDone() {
-      //  self.tableView.reloadData()
-   // }
+    func parseDone() {
+        self.tableView.reloadData()
+    }
    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
@@ -51,22 +51,22 @@ class RSSTableViewController: UITableViewController, RSSFeedItemsParserDelegate 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell
         var index = indexPath.row;
-        cell.textLabel!.text = feeds.objectAtIndex(index).objectForKey("title") as? String
+        var feedItem = feeds[index];
+        cell.textLabel!.text = feedItem.ftitle;
         cell.detailTextLabel!.numberOfLines = 3
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
-        cell.detailTextLabel!.text = feeds.objectAtIndex(index).objectForKey("description") as? String
+        cell.detailTextLabel!.text = feedItem.fdescription;
         return cell
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "webViewOpenSegue") {
             var index : Int! = self.tableView.indexPathForSelectedRow()?.row;
-            var selectedLink : String! = feeds.objectAtIndex(index!).objectForKey("link") as? String
-            
+            var feedItem = feeds[index];
             let webViewControler : WebViewViewController = segue.destinationViewController as WebViewViewController
-            webViewControler.url = selectedLink;
+            webViewControler.url = feedItem.link;
         } else if (segue.identifier == "feedsBookmarksSeque") {
-            let feedsViewController : FeedsTableViewController = segue.destinationViewController as FeedsTableViewController;
+            let feedsViewController : RssFeedsChannelListTableViewController = segue.destinationViewController as RssFeedsChannelListTableViewController;
            // pass parameters to  feedsViewController
         }
     }

@@ -122,7 +122,7 @@ class NewFeedViewController: UIViewController, RssFeedChannelParserDelegate, UIT
             println("existing item saved: \(existingItem)");
         } else {
             // create instance of pur data model and initialize
-            var newItem = RssFeedModel(entity: en!, insertIntoManagedObjectContext: context)
+            var newItem = RssFeedChannelModel(entity: en!, insertIntoManagedObjectContext: context)
             
             // map properties
             newItem.urlString = rssFiedUrlField!.text;

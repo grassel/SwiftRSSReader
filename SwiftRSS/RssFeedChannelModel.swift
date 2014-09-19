@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class RssFeedModel: NSManagedObject {
+class RssFeedChannelModel: NSManagedObject {
 
     @NSManaged var urlString : String;
     @NSManaged var titleString : String;

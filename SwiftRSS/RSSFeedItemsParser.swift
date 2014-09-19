@@ -4,11 +4,9 @@ import Foundation
 class RSSFeedItemsParser : NSObject, NSXMLParserDelegate {
     
     var parser : NSXMLParser! = nil;
-    var parserStack : ParserStack = ParserStack();
+    var parseStack : ParseStack = ParseStack();
 
-    var ftitle = NSMutableString()
-    var link = NSMutableString()
-    var fdescription = NSMutableString()
+    var feedIem : RssFeedItemModel = RssFeedItemModel();
     
     var delegate : RSSFeedItemsParserDelegate?;
     
@@ -21,7 +19,7 @@ class RSSFeedItemsParser : NSObject, NSXMLParserDelegate {
     
     func parseRssFeedItemsAsync(urlString : String) {
         queue.addOperationWithBlock() {
-            self.parserStack = ParserStack();
+            self.parseStack = ParseStack();
             
             var url: NSURL = NSURL.URLWithString(urlString)
             self.parser = NSXMLParser(contentsOfURL: url)
@@ -41,47 +39,39 @@ class RSSFeedItemsParser : NSObject, NSXMLParserDelegate {
 
     func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!) {
         
-        self.parserStack.pushElement(elementName);
+        self.parseStack.pushElement(elementName);
         
         // we just found a new item, reset item values
-        if (elementName == "item") {
-            ftitle = NSMutableString.alloc();
-            ftitle = ""
-            link = NSMutableString.alloc();
-            link = ""
-            fdescription = NSMutableString.alloc()
-            fdescription = ""
+        if (elementName == "item" && parseStack.parentElement(2) == "channel" ) {
+            feedIem = RssFeedItemModel();
         }
     }
     
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
-        var poppedElmt : String = parserStack.popElement();
+        var poppedElmt : String = parseStack.popElement();
         
         if (elementName != poppedElmt) {
             println("ERROR in parsing, unexpected end element \(elementName)!");
         }
         
-        if (elementName == "item") {
+         if (elementName == "item" && parseStack.parentElement() == "channel" )  {
             NSOperationQueue.mainQueue().addOperationWithBlock() {
-                self.invokeDelegateParseItem(self.ftitle, link: self.link, fdescription: self.fdescription);
+                self.invokeDelegateParseItem(self.feedIem);
             }
         }
     }
     
-    func invokeDelegateParseItem(ftitle : NSMutableString, link : NSMutableString, fdescription : NSMutableString) {
-        delegate?.parseItem?(ftitle, link: link, fdescription: fdescription);
+    func invokeDelegateParseItem(feedIem : RssFeedItemModel) {
+        delegate?.parseItem?(feedIem);
     }
     
     func parser(parser: NSXMLParser!, foundCharacters string: String!) {
-        if (parserStack.parentElement() == "title" && parserStack.parentElement(2) == "item") {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
-            ftitle.appendString(s)
-        } else if (parserStack.parentElement() == "link" && parserStack.parentElement(2) == "item") {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil);
-            link.appendString(s)
-        } else if (parserStack.parentElement() == "description" && parserStack.parentElement(2) == "item")  {
-            let s = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
-            fdescription.appendString(s)
+        if (parseStack.parentElement() == "title" && parseStack.parentElement(2) == "item") {
+            feedIem.ftitle += string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
+        } else if (parseStack.parentElement() == "link" && parseStack.parentElement(2) == "item") {
+            feedIem.link += string.stringByReplacingOccurrencesOfString("\n", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil);
+        } else if (parseStack.parentElement() == "description" && parseStack.parentElement(2) == "item")  {
+            feedIem.fdescription += string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
         }
     }
     

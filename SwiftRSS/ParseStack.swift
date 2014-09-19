@@ -3,7 +3,7 @@ import Foundation
 
 // provides a simplistic Stack implementation useful for realising the context while XML parsing.
 
-class ParserStack : NSObject {
+class ParseStack : NSObject {
     
     var parsedElements : NSMutableArray = NSMutableArray();
     

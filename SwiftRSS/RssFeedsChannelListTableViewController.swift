@@ -1,15 +1,8 @@
-//
-//  FeedsTableViewController.swift
-//  SwiftRSS
-//
-//  Created by Guido Grassel on 13/09/14.
-//  Copyright (c) 2014 albert mckeever. All rights reserved.
-//
 
 import UIKit
 import CoreData
 
-class FeedsTableViewController: UITableViewController {
+class RssFeedsChannelListTableViewController: UITableViewController {
 
     var feedsList : Array<AnyObject> = []
 
@@ -41,8 +34,6 @@ class FeedsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.

@@ -6,7 +6,7 @@ import UIKit
 class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
     
     var parser = NSXMLParser()
-    var parserStack : ParserStack = ParserStack();
+    var parseStack : ParseStack = ParseStack();
     var delegate : RssFeedChannelParserDelegate?
     
     // queue for doing RSS parsing in background thread
@@ -23,7 +23,7 @@ class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
         queue.addOperationWithBlock() { ... }
         */
         queue.addOperationWithBlock() {
-            self.parserStack = ParserStack();
+            self.parseStack = ParseStack();
             
             var url: NSURL = NSURL.URLWithString(urlString)
             self.parser = NSXMLParser(contentsOfURL: url)
@@ -32,18 +32,18 @@ class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
             self.parser.shouldReportNamespacePrefixes = false
             self.parser.shouldResolveExternalEntities = false
             
-            self.parserStack = ParserStack();     // no elements parsed
+            self.parseStack = ParseStack();     // no elements parsed
             self.parser.parse()
         }
     }
     
     
     func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!) {
-        parserStack.pushElement(elementName);
+        parseStack.pushElement(elementName);
     }
     
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
-        var poppedElmt : String = parserStack.popElement();
+        var poppedElmt : String = parseStack.popElement();
         
         if (elementName != poppedElmt) {
             println("ERROR in parsing, unexpected end element \(elementName)!");
@@ -51,25 +51,25 @@ class RssFeedChannelParser : NSObject, NSXMLParserDelegate {
     }
     
     func parser(parser: NSXMLParser!, foundCharacters string: String!) {
-        if (parserStack.parentElement() == "title" && parserStack.parentElement(2) == "channel" && parserStack.parentElement(3) == "rss") {
+        if (parseStack.parentElement() == "title" && parseStack.parentElement(2) == "channel" && parseStack.parentElement(3) == "rss") {
             if (delegate != nil) {
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
                    self.delegate!.parseValue(title: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil))
                 }
             }
-        } else if (parserStack.parentElement() == "description" && parserStack.parentElement(2) == "channel" && parserStack.parentElement(3) == "rss") {
+        } else if (parseStack.parentElement() == "description" && parseStack.parentElement(2) == "channel" && parseStack.parentElement(3) == "rss") {
             if (delegate != nil) {
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
                     self.delegate!.parseValue(description: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil));
                 }
             }
-        } else if (parserStack.parentElement() == "pubDate" && parserStack.parentElement(2) == "channel" && parserStack.parentElement(3) == "rss") {
+        } else if (parseStack.parentElement() == "pubDate" && parseStack.parentElement(2) == "channel" && parseStack.parentElement(3) == "rss") {
             if (delegate != nil) {
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
                     self.delegate!.parseValue(pubDate: string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil));
                 }
             }
-        } else if (parserStack.parentElement() == "url" && parserStack.parentElement(2) == "image" && parserStack.parentElement(3) == "channel" && parserStack.parentElement(4) == "rss") {
+        } else if (parseStack.parentElement() == "url" && parseStack.parentElement(2) == "image" && parseStack.parentElement(3) == "channel" && parseStack.parentElement(4) == "rss") {
             if (delegate != nil) {
                 var urlString = string.stringByReplacingOccurrencesOfString("\n", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
