@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9g9-iR-nGz">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--Rss Feed Item List Table View Controller-->
         <scene sceneID="ybS-l4-aIm">
             <objects>
-                <tableViewController id="8kB-6b-MA1" customClass="RssFeedItemListTableViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FeedItemListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8kB-6b-MA1" customClass="RssFeedItemListTableViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="IfY-sV-kUc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,9 +84,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="F0c-Cd-r5E" kind="show" identifier="updateFeedInfo" id="AIB-Fi-uV7"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -96,20 +92,23 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Bookmarks" id="meV-zd-hYV">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="oI7-0P-SKq">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="oI7-0P-SKq">
                             <connections>
-                                <action selector="doeSelected:" destination="Fvd-Ec-q9a" id="B3y-HP-IJH"/>
+                                <action selector="leftButtonSelected:" destination="Fvd-Ec-q9a" id="hga-uS-DiI"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="3Ss-u8-9rQ">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" style="plain" id="3Ss-u8-9rQ">
                             <connections>
-                                <action selector="addNewFeedSelected:" destination="Fvd-Ec-q9a" id="M2t-uP-qkh"/>
-                                <segue destination="F0c-Cd-r5E" kind="show" identifier="addNewFeed" id="Obo-9v-rwb"/>
+                                <action selector="rightButtonSelected:" destination="Fvd-Ec-q9a" id="yo3-mz-QzC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="leftSideButton" destination="oI7-0P-SKq" id="aaV-na-dj8"/>
+                        <outlet property="rightSideButton" destination="3Ss-u8-9rQ" id="bgb-YS-pNZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvp-hQ-FCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -118,7 +117,7 @@
         <!--New Feed View Controller-->
         <scene sceneID="wBn-UT-okz">
             <objects>
-                <viewController id="F0c-Cd-r5E" customClass="NewFeedViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewFeedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F0c-Cd-r5E" customClass="NewFeedViewController" customModule="SwiftRSS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RDf-DJ-Afg"/>
                         <viewControllerLayoutGuide type="bottom" id="d9K-a6-ibu"/>
@@ -248,7 +247,4 @@
             <point key="canvasLocation" x="433" y="868"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Obo-9v-rwb"/>
-    </inferredMetricsTieBreakers>
 </document>

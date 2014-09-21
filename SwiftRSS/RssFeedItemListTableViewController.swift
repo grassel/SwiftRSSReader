@@ -12,6 +12,8 @@ import UIKit
 class RssFeedItemListTableViewController: UITableViewController, RSSFeedItemsParserDelegate {
 
     var urlString : String = "http://www.spiegel.de/schlagzeilen/tops/index.rss"   // url of the currently displayed RSS feed
+    var titleString : String = "FIXME";
+    
     var feeds : Array<RssFeedItemModel> = []  // holds the result
     
     var parser : RSSFeedItemsParser = RSSFeedItemsParser();
@@ -20,6 +22,20 @@ class RssFeedItemListTableViewController: UITableViewController, RSSFeedItemsPar
         super.viewDidLoad()
         
         parser.delegate = self;
+        
+        self.reloadFeed();
+    }
+    
+    // FIXME: put some logic here to only reload the feed when needed, 
+    // needed when comming here from RssFeedsChannelListTableViewController
+    // otherwise not
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+    }
+    
+    func reloadFeed() {
+        self.feeds.removeAll(keepCapacity: true);
+        self.tableView.reloadData()
         parser.parseRssFeedItemsAsync(urlString);
         // RSSFeedItemsParserDelegate delivers results
     }
